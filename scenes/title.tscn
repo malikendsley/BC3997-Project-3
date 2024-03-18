@@ -1,0 +1,86 @@
+[gd_scene load_steps=8 format=3 uid="uid://c8jds4fj0d6e4"]
+
+[ext_resource type="Texture2D" uid="uid://v57kap4q0tnv" path="res://assets/title.png" id="1_pwd68"]
+[ext_resource type="FontFile" uid="uid://d32xknp0uc2ff" path="res://assets/BruceForeverRegular-X3jd2.ttf" id="2_euexg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cqtis"]
+atlas = ExtResource("1_pwd68")
+region = Rect2(0, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kf4ns"]
+atlas = ExtResource("1_pwd68")
+region = Rect2(300, 0, 300, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wl4q7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cqtis")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kf4ns")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_j8x0o"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ns1g1"]
+gradient = SubResource("Gradient_j8x0o")
+width = 114
+
+[node name="Title" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(300, 300)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_wl4q7")
+autoplay = "default"
+frame_progress = 0.529763
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_euexg")
+theme_override_font_sizes/font_size = 51
+text = "DEADWORLD
+CRUISER"
+
+[node name="Button" type="TextureButton" parent="CanvasLayer/Control"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture_normal = SubResource("GradientTexture2D_ns1g1")
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.5
+offset_top = -11.5
+offset_right = 38.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_euexg")
+text = "START"

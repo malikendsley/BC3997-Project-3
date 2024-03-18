@@ -1,0 +1,143 @@
+[gd_scene load_steps=16 format=3 uid="uid://b4slftjholr8m"]
+
+[ext_resource type="Script" path="res://scenes/level1.gd" id="1_qhomo"]
+[ext_resource type="Texture2D" uid="uid://cj6jkirr7uk5q" path="res://assets/bgcolor.png" id="2_wtsm1"]
+[ext_resource type="Texture2D" uid="uid://b2ex8fiav87v0" path="res://assets/bg2.png" id="3_n43u3"]
+[ext_resource type="Texture2D" uid="uid://cok566v5ry3pq" path="res://assets/bg1.png" id="4_uaa78"]
+[ext_resource type="PackedScene" uid="uid://cdged6t3habn0" path="res://scenes/player.tscn" id="5_e1lfu"]
+[ext_resource type="Texture2D" uid="uid://wkjxo135knnw" path="res://assets/testtile.png" id="6_ln4ht"]
+[ext_resource type="Texture2D" uid="uid://rycqpb5tr0s4" path="res://assets/darkpurp.png" id="7_6th5y"]
+[ext_resource type="Texture2D" uid="uid://cc81dk51gbpnu" path="res://assets/reticle.png" id="8_0o7fp"]
+[ext_resource type="Script" path="res://scenes/follow_mouse.gd" id="9_ipfph"]
+[ext_resource type="FontFile" uid="uid://d32xknp0uc2ff" path="res://assets/BruceForeverRegular-X3jd2.ttf" id="10_lm3lj"]
+[ext_resource type="Script" path="res://scenes/triggertowhite.gd" id="11_kaom5"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mfmaq"]
+texture = ExtResource("6_ln4ht")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-20, -20, 20, -20, 20, 20, -20, 20)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rj0rf"]
+texture = ExtResource("7_6th5y")
+texture_region_size = Vector2i(40, 40)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-20, -20, 20, -20, 20, 20, -20, 20)
+
+[sub_resource type="TileSet" id="TileSet_jkth0"]
+tile_size = Vector2i(40, 40)
+physics_layer_0/collision_layer = 3
+sources/0 = SubResource("TileSetAtlasSource_mfmaq")
+sources/1 = SubResource("TileSetAtlasSource_rj0rf")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_irtpj"]
+size = Vector2(1632, 20)
+
+[node name="Level5" type="Node2D"]
+script = ExtResource("1_qhomo")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground"]
+texture_repeat = 2
+scale = Vector2(500, 500)
+texture = ExtResource("2_wtsm1")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.3, 0.3)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+modulate = Color(0.788235, 0.788235, 0.788235, 1)
+texture_repeat = 3
+texture = ExtResource("3_n43u3")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.1, 0.1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("4_uaa78")
+
+[node name="Player" parent="." instance=ExtResource("5_e1lfu")]
+position = Vector2(-9, -32)
+jump_power = 1000.0
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_jkth0")
+rendering_quadrant_size = 20
+format = 2
+layer_0/name = "default"
+layer_0/tile_data = PackedInt32Array(131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, -65542, 0, 0, -196612, 0, 0, -327682, 0, 0, -262141, 0, 0, -393210, 0, 0, -458740, 0, 0, -196595, 0, 0, -524285, 0, 0)
+
+[node name="Reticle" type="Sprite2D" parent="." node_paths=PackedStringArray("camera")]
+texture = ExtResource("8_0o7fp")
+script = ExtResource("9_ipfph")
+camera = NodePath("../Player/Camera2D")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.454902, 0.337255, 0.607843, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -263.0
+offset_top = -21.5
+offset_right = 263.0
+offset_bottom = 21.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("10_lm3lj")
+theme_override_font_sizes/font_size = 36
+text = "GOODBYE."
+
+[node name="Fader" type="ColorRect" parent="CanvasLayer/Control"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+z_index = 155
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("fader", "control", "purp", "text")]
+position = Vector2(-88, 272)
+collision_layer = 3
+script = ExtResource("11_kaom5")
+fader = NodePath("../CanvasLayer/Control/Fader")
+control = NodePath("../CanvasLayer/Control")
+purp = NodePath("../CanvasLayer/Control/ColorRect")
+text = NodePath("../CanvasLayer/Control/Label")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_irtpj")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+
+[editable path="Player"]

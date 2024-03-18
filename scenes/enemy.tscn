@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://dnl8o3hb34i0a"]
+
+[ext_resource type="Texture2D" uid="uid://cd8pkb7mic7ui" path="res://assets/enemy.png" id="1_hy0xt"]
+[ext_resource type="Script" path="res://scenes/enemyai.gd" id="1_mcw77"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dudmy"]
+atlas = ExtResource("1_hy0xt")
+region = Rect2(0, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_46i17"]
+atlas = ExtResource("1_hy0xt")
+region = Rect2(40, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_avm45"]
+atlas = ExtResource("1_hy0xt")
+region = Rect2(80, 0, 40, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d212w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dudmy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46i17")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_avm45")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gp34c"]
+radius = 15.0333
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7vhpl"]
+radius = 17.4642
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_mcw77")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_d212w")
+autoplay = "default"
+frame_progress = 0.877655
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_gp34c")
+
+[node name="HitBox" type="Area2D" parent="."]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_7vhpl")
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
